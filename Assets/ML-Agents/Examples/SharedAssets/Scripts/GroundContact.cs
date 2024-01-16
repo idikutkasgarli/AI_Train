@@ -1,5 +1,6 @@
 using UnityEngine;
 using Unity.MLAgents;
+using System.Diagnostics;
 
 namespace Unity.MLAgentsExamples
 {
@@ -48,8 +49,6 @@ namespace Unity.MLAgentsExamples
                 touchingGround = false;
             }
         }
-
-
 
     }
 }

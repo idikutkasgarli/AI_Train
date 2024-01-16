@@ -9,6 +9,8 @@ using Random = UnityEngine.Random;
 
 public class WalkerAgent : Agent
 {
+    public DirectionIndicator directionInd;
+
     [Header("Walk Speed")]
     [Range(0.1f, 10)]
     [SerializeField]

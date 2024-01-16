@@ -2,6 +2,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 using Unity.MLAgents;
 using UnityEngine.Events;
+using System.Diagnostics;
 
 namespace Unity.MLAgentsExamples
 {
@@ -62,7 +63,7 @@ namespace Unity.MLAgentsExamples
             {
                 if (transform.position.y < m_startingPos.y - fallDistance)
                 {
-                    Debug.Log($"{transform.name} Fell Off Platform");
+                    UnityEngine.Debug.Log($"{transform.name} Fell Off Platform");
                     MoveTargetToRandomPosition();
                 }
             }
