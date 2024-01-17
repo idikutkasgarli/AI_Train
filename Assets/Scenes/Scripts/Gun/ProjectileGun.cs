@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class ProjectileGun : MonoBehaviour
 {
@@ -83,41 +84,34 @@ public class ProjectileGun : MonoBehaviour
             Shoot();
         }
     }
-
     private void Shoot()
     {
         readyToShoot = false;
 
-        // Find the exact hit position using a raycast
-        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Just a ray through the middle of your current view
-        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 15f);
+        //Find the exact hit position using a raycast
+        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //Just a ray through the middle of your current view
 
-        RaycastHit hit;
-
-        Vector3 targetPoint;
-
-        if (Physics.Raycast(ray, out hit, 75f)) {
-            targetPoint = hit.point;
-            // Now targetPoint contains the point where the ray hit at a maximum distance of 75 units
-            // You can use this point as needed in your code
-        } 
-        else {
-            // The ray didn't hit anything within the specified distance
-            // You might want to handle this case depending on your requirements
-            targetPoint = ray.GetPoint(75f);
-        }
-        animator.SetTrigger("Shooting");
         //check if ray hits something
 
-        // targetPoint = ray.GetHitPoint(75f);
-        
+        RaycastHit hit;
+        Vector3 targetPoint;
+
+        if (Physics.Raycast(ray, out hit, 100f))
+        {
+            targetPoint = hit.point;
+        }
+        else
+        {
+            targetPoint = ray.GetPoint(75f);
+        }
+
         //Calculate direction from attackPoint to targetPoint
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
 
         //Calculate spread
-        float x = Random.Range(-spread, spread);
-        float y = Random.Range(-spread, spread);
-        float z = Random.Range(-spread, spread);
+        float x = UnityEngine.Random.Range(-spread, spread);
+        float y = UnityEngine.Random.Range(-spread, spread);
+        float z = UnityEngine.Random.Range(-spread, spread);
 
         //Calculate new direction with spread
         Vector3 directionWithSpread = directionWithoutSpread + new Vector3(x, y, z); //Just add spread to last direction
@@ -152,10 +146,11 @@ public class ProjectileGun : MonoBehaviour
         if (bulletsShot < bulletsPerTap && bulletsLeft > 0)
             Invoke("Shoot", timeBetweenShots);
 
-            
+
         //shake the gun when shooting
 
     }
+
     private void ResetShot()
     {
         //Allow shooting and invoking again

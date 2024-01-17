@@ -5,12 +5,15 @@ using UnityEngine;
 
 public class ReachTarget : MonoBehaviour
 {
+    public string TriggerTag;
+
     private void OnTriggerEnter(Collider other)
     {
         // Temas eden objenin tag'ini kontrol et
-        if (other.CompareTag("target"))
+        if (other.CompareTag(TriggerTag))
         {
-            StartCoroutine(DestroyAfterDelay(.5f));
+            UnityEngine.Debug.Log("Trigger with " + other.gameObject.name);
+            StartCoroutine(DestroyAfterDelay(.1f));
         }
     }
 
