@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PickUpController : MonoBehaviour
 {
+    public GameObject RBPlayer;
     public ProjectileGun gunScript;
     public Rigidbody rb;
     public BoxCollider boxCollider;
@@ -93,7 +94,7 @@ public class PickUpController : MonoBehaviour
         gunScript.enabled = false;
 
         //gun carries momentum of playerController
-        rb.velocity = playerController.GetComponent<Rigidbody>().velocity;
+        rb.velocity = RBPlayer.GetComponent<Rigidbody>().velocity;
 
         //add force to gun
         rb.AddForce(fpsCam.forward * dropForwardForce, ForceMode.Impulse);
