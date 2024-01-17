@@ -8,6 +8,8 @@ public class ProjectileGun : MonoBehaviour
         //bullet 
     public GameObject bullet;
 
+    public Animator animator;
+
     //bullet force
     public float shootForce, upwardForce;
 
@@ -86,12 +88,29 @@ public class ProjectileGun : MonoBehaviour
     {
         readyToShoot = false;
 
-        //Find the exact hit position using a raycast
-        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); //Just a ray through the middle of your current view
+        // Find the exact hit position using a raycast
+        Ray ray = fpsCam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Just a ray through the middle of your current view
+        Debug.DrawRay(ray.origin, ray.direction * 100, Color.red, 15f);
 
+        RaycastHit hit;
+
+        Vector3 targetPoint;
+
+        if (Physics.Raycast(ray, out hit, 75f)) {
+            targetPoint = hit.point;
+            // Now targetPoint contains the point where the ray hit at a maximum distance of 75 units
+            // You can use this point as needed in your code
+        } 
+        else {
+            // The ray didn't hit anything within the specified distance
+            // You might want to handle this case depending on your requirements
+            targetPoint = ray.GetPoint(75f);
+        }
+        animator.SetTrigger("Shooting");
         //check if ray hits something
 
-        Vector3 targetPoint = ray.GetPoint(5f);
+        // targetPoint = ray.GetHitPoint(75f);
+        
         //Calculate direction from attackPoint to targetPoint
         Vector3 directionWithoutSpread = targetPoint - attackPoint.position;
 
@@ -148,12 +167,15 @@ public class ProjectileGun : MonoBehaviour
     {
         reloading = true;
         Invoke("ReloadFinished", reloadTime); //Invoke ReloadFinished function with your reloadTime as delay
+        animator.SetTrigger("Reload");
+
     }
     private void ReloadFinished()
     {
         //Fill magazine
         bulletsLeft = magazineSize;
         reloading = false;
+        bulletsLeft = magazineSize;
     }
 
     void Sway()

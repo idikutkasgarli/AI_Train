@@ -248,7 +248,12 @@ public class PlayerMovement : MonoBehaviour
             Invoke(nameof(StandUpAgain), 0.2f);
         }
     }
+
+    //print aslı gey diye yazdır
+    
+    
 }
 
     
 
+  

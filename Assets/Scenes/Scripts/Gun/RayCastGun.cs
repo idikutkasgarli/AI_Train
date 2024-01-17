@@ -37,7 +37,6 @@ public class RayCastGun : MonoBehaviour
         MyInput();
 
         //SetText
-        text.SetText(bulletsLeft + " / " + magazineSize);
     }
     private void MyInput()
     {
