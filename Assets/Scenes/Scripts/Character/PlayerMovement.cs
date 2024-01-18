@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        rb = transform.parent.GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         startScaleY = transform.localScale.y;
     }
@@ -256,4 +256,3 @@ public class PlayerMovement : MonoBehaviour
 
     
 
-  
